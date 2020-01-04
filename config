@@ -56,7 +56,7 @@ bindsym $mod+x mode "$mode_display"
 #
 # Example configuration:
 #
- exec swayidle -w \
+exec swayidle -w \
           timeout 300 'swaylock -f -c 000000' \
           timeout 600 'swaymsg "output * dpms off"' \
                resume 'swaymsg "output * dpms on"' \
@@ -129,6 +129,7 @@ bindsym $mod+x mode "$mode_display"
     bindsym $mod+Shift+Down move down
     bindsym $mod+Shift+Up move up
     bindsym $mod+Shift+Right move right
+
 #
 # Workspaces:
 #
@@ -156,6 +157,7 @@ bindsym $mod+x mode "$mode_display"
     bindsym $mod+Shift+0 move container to workspace 10
     # Note: workspaces can have any name you want, not just numbers.
     # We just use 1-10 as the default.
+
 #
 # Layout stuff:
 #
@@ -181,6 +183,7 @@ bindsym $mod+x mode "$mode_display"
 
     # Move focus to the parent container
     bindsym $mod+a focus parent
+
 #
 # Scratchpad:
 #
@@ -193,6 +196,7 @@ bindsym $mod+x mode "$mode_display"
     # Show the next scratchpad window or hide the focused scratchpad window.
     # If there are multiple scratchpad windows, this command cycles through them.
     bindsym $mod+minus scratchpad show
+
 #
 # Resizing containers:
 #
@@ -227,12 +231,11 @@ bar {
 
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.
-    status_command while date +'%Y-%m-%d %l:%M:%S %p'; do sleep 1; done
+    status_command while date +'%d-%m-%Y %T'; do sleep 1; done
 
     colors {
         statusline #ffffff
         background #212121
-        inactive_workspace #32323200 #32323200 #5c5c5c
     }
 }
 
@@ -244,4 +247,5 @@ exec thunderbird
 exec firefox
 exec pcmanfm-qt
 
+# Disable support for xwayland
 xwayland disable
