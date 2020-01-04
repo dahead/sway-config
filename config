@@ -56,11 +56,11 @@ bindsym $mod+x mode "$mode_display"
 #
 # Example configuration:
 #
-exec swayidle -w \
-          timeout 300 'swaylock -f -c 000000' \
-          timeout 600 'swaymsg "output * dpms off"' \
-               resume 'swaymsg "output * dpms on"' \
-          before-sleep 'swaylock -f -c 000000'
+#exec swayidle -w \
+#          timeout 300 'swaylock -f -c 000000' \
+#          timeout 600 'swaymsg "output * dpms off"' \
+#               resume 'swaymsg "output * dpms on"' \
+#          before-sleep 'swaylock -f -c 000000'
 #
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
@@ -241,10 +241,20 @@ bar {
 
 include /etc/sway/config.d/*
 
+# Mako - desktop notifications
+exec mako --default-timeout 5000
+# exec mako
+
+# volume control
 exec pavucontrol
-exec terminator
+
+# Terminal emulator
+#exec terminator
+
 exec thunderbird
 exec firefox
+
+# File manage - pcmanfm for qt
 exec pcmanfm-qt
 
 # Disable support for xwayland
