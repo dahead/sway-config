@@ -1,1 +1,13 @@
-test
+#
+# This file is parsed by pam_env module
+#
+# Syntax: simple "KEY=VAL" pairs on separate lines
+#
+
+QT_WAYLAND_FORCE_DPI=physical
+QT_QPA_PLATFORM=wayland-egl
+#GDK_BACKEND=wayland
+CLUTTER_BACKEND=wayland
+SDL_VIDEODRIVER=wayland
+#BEMENU_BACKEND=wayland
+MOZ_ENABLE_WAYLAND=1
