@@ -10,48 +10,6 @@ set $down j
 set $up k
 set $right l
 
-# Your preferred terminal emulator
-set $term terminator
-
-# Your preferred application launcher
-set $menu dmenu_path | wofi --show drun -i | xargs swaymsg exec --
-
-### Output configuration
-output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
-
-#
-# Lenvo X1C7 with external LG monitor
-#
-
-# Both Displays
-#output eDP-1 scale 1
-#output eDP-1 pos 320 1080 res 1920x1080
-#output DP-5 scale 1
-#output DP-5 pos 0 0 res 1920x1080
-
-# Just LG Display
-output eDP-1 disable
-output DP-5 scale 1
-output DP-5 pos 0 0 res 1920x1080
-
-# Screen modes. Note: mirroring is not yet supported by sway.
-# Switcher script
-set $scr_aux = "DP-5"
-set $scr_main = "eDP-1"
-set $native = "1920"
-set $mode_display AUX SCREEN: (l) LEFT (r) RIGHT (o) OFF (m) MIRROR
-mode "$mode_display" {
-    bindsym l output $scr_aux enable, output $scr_main pos 0 0, output $scr_aux pos -$native_width 0, mode "default"
-    bindsym r output $scr_aux enable, output $scr_main pos 0 0, output $scr_aux pos $native_width 0, mode "default"
-    bindsym m output $scr_aux enable, output $scr_main pos 0 0, output $scr_aux pos 0 0, mode "default"
-    bindsym o output $scr_aux disable, mode "default"
-
-    # back to normal: Enter or Escape
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
-bindsym $mod+x mode "$mode_display"
-
 ### Idle configuration
 #
 # Example configuration:
@@ -144,6 +102,7 @@ bindsym $mod+x mode "$mode_display"
     bindsym $mod+8 workspace 8
     bindsym $mod+9 workspace 9
     bindsym $mod+0 workspace 10
+
     # Move focused container to workspace
     bindsym $mod+Shift+1 move container to workspace 1
     bindsym $mod+Shift+2 move container to workspace 2
@@ -227,7 +186,10 @@ bindsym $mod+r mode "resize"
 #
 # Read `man 5 sway-bar` for more information about this section.
 bar {
+    font pango:SourceCodePro Medium 8
     position bottom
+    # bar hidden_state hid
+    # bar mode hide
 
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.
@@ -241,6 +203,120 @@ bar {
 
 include /etc/sway/config.d/*
 
+
+##############################################
+# dh settings
+#############################################
+
+
+# Application launcher wofi
+set $menu dmenu_path | wofi --show drun -i | xargs swaymsg exec --
+
+### Output configuration
+output * bg /home/dh/Wallpaper/moraine_lake_canadian_rockies-wallpaper-2560x1440.jpg fill
+
+#############################################
+# Lenvo X1C7 with external LG monitor
+#############################################
+
+# Both Displays
+#output eDP-1 scale 1
+#output eDP-1 pos 320 1080 res 1920x1080
+#output DP-5 scale 1
+#output DP-5 pos 0 0 res 1920x1080
+
+# Just LG Display
+output eDP-1 disable
+output DP-5 scale 1
+output DP-5 pos 0 0 res 1920x1080
+
+
+# Screen modes. Note: mirroring is not yet supported by sway.
+# Switcher script
+set $scr_aux = "DP-5"
+set $scr_main = "eDP-1"
+set $native = "1920"
+set $mode_display AUX SCREEN: (l) LEFT (r) RIGHT (o) OFF (m) MIRROR
+mode "$mode_display" {
+    bindsym l output $scr_aux enable, output $scr_main pos 0 0, output $scr_aux pos -$native_width 0, mode "default"
+    bindsym r output $scr_aux enable, output $scr_main pos 0 0, output $scr_aux pos $native_width 0, mode "default"
+    bindsym m output $scr_aux enable, output $scr_main pos 0 0, output $scr_aux pos 0 0, mode "default"
+    bindsym o output $scr_aux disable, mode "default"
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+x mode "$mode_display"
+
+###############################################
+# more adjustments
+###############################################
+
+# Window Font
+#font pango:Monaco Linux 10
+font pango:SourceCodePro Medium 10
+
+smart_borders on
+smart_gaps on
+popup_during_fullscreen ignore
+
+#gaps outer -5
+#gaps innter 10
+
+# adjust opacity of current window
+bindsym $mod+o opacity plus 0.1
+bindsym $mod+shift+o opacity minus 0.1
+
+# Toggle sticky window (show on all workspaces on/off)
+bindsym $mod+p sticky toggle
+
+# Todo: switch off display when laptop lid is closed
+bindswitch lid:toggle exec echo "Lid moved"
+
+# Todo: rename current workspace X to Y
+# dialog --title 'Message' --msgbox 'Hello, world!' 5 20
+# bindsym $mod+shift+r exec "dialog --inputbox "Workspace name:" 8 40 2"
+
+
+# Set default workspace layout to tabbed
+workspace_layout tabbed
+
+
+# Your preferred terminal emulator
+set $term kitty
+
+# Adjustments
+default_orientation auto
+
+
+##############################################
+#
+####
+
+set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
+mode "$mode_system" {
+    bindsym l exec swaylock , mode "default"
+    bindsym e exec exit, mode "default"
+    bindsym s exec systemctl suspend, mode "default"
+    bindsym h exec systemctl hibernate, mode "default"
+    bindsym r exec systemctl reboot, mode "default"
+    bindsym Shift+s exec systemctl suspend shutdown, mode "default"
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+Pause mode "$mode_system"
+
+
+###############################################
+# Autostart
+##############################################
+
+# hack to hide the bar (doesn't work via bar config above)
+exec_always swaymsg bar mode hide
+
 # Mako - desktop notifications
 exec mako --default-timeout 5000
 # exec mako
@@ -249,7 +325,7 @@ exec mako --default-timeout 5000
 exec pavucontrol
 
 # Terminal emulator
-#exec terminator
+exec kitty
 
 exec thunderbird
 exec firefox
