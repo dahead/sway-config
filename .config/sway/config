@@ -1,9 +1,6 @@
 # ~/.config/sway/config
 # Read `man 5 sway` for a complete reference.
 
-### Variables
-set $mod Mod1
-
 # Home row direction keys, like vim
 set $left h
 set $down j
@@ -188,12 +185,12 @@ bindsym $mod+r mode "resize"
 bar {
     font pango:SourceCodePro Medium 8
     position bottom
-    # bar hidden_state hid
-    # bar mode hide
+    # bar hidden_state hide
+    bar mode dock
 
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.
-    status_command while date +'%d-%m-%Y %T'; do sleep 1; done
+    # status_command while date +'%d-%m-%Y %T'; do sleep 1; done
 
     colors {
         statusline #ffffff
@@ -203,33 +200,29 @@ bar {
 
 include /etc/sway/config.d/*
 
-
 ##############################################
-# dh settings
+# dh adjustments
 #############################################
 
+### Set modifier to alt
+set $mod Mod1
 
 # Application launcher wofi
 set $menu dmenu_path | wofi --show drun -i | xargs swaymsg exec --
 
 ### Output configuration
-output * bg /home/dh/Wallpaper/moraine_lake_canadian_rockies-wallpaper-2560x1440.jpg fill
+output * bg /home/dh/Wallpaper/island_3-wallpaper-2560x1440.jpg fill
 
-#############################################
 # Lenvo X1C7 with external LG monitor
-#############################################
-
 # Both Displays
 #output eDP-1 scale 1
 #output eDP-1 pos 320 1080 res 1920x1080
 #output DP-5 scale 1
 #output DP-5 pos 0 0 res 1920x1080
-
 # Just LG Display
 output eDP-1 disable
 output DP-5 scale 1
 output DP-5 pos 0 0 res 1920x1080
-
 
 # Screen modes. Note: mirroring is not yet supported by sway.
 # Switcher script
@@ -249,18 +242,11 @@ mode "$mode_display" {
 }
 bindsym $mod+x mode "$mode_display"
 
-###############################################
-# more adjustments
-###############################################
-
-# Window Font
-#font pango:Monaco Linux 10
+# Look
 font pango:SourceCodePro Medium 10
-
 smart_borders on
 smart_gaps on
 popup_during_fullscreen ignore
-
 #gaps outer -5
 #gaps innter 10
 
@@ -278,25 +264,20 @@ bindswitch lid:toggle exec echo "Lid moved"
 # dialog --title 'Message' --msgbox 'Hello, world!' 5 20
 # bindsym $mod+shift+r exec "dialog --inputbox "Workspace name:" 8 40 2"
 
-
 # Set default workspace layout to tabbed
 workspace_layout tabbed
-
 
 # Your preferred terminal emulator
 set $term kitty
 
-# Adjustments
+# Set default orientation of workspaces to auto
 default_orientation auto
 
-
-##############################################
-#
-####
+# Power/Shutdown/Standby stuff
 
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
-    bindsym l exec swaylock , mode "default"
+    bindsym l exec swaylock, mode "default"
     bindsym e exec exit, mode "default"
     bindsym s exec systemctl suspend, mode "default"
     bindsym h exec systemctl hibernate, mode "default"
@@ -309,7 +290,6 @@ mode "$mode_system" {
 }
 bindsym $mod+Pause mode "$mode_system"
 
-
 ###############################################
 # Autostart
 ##############################################
@@ -317,9 +297,8 @@ bindsym $mod+Pause mode "$mode_system"
 # hack to hide the bar (doesn't work via bar config above)
 exec_always swaymsg bar mode hide
 
-# Mako - desktop notifications
+# Mako - desktop notifications with default timeout set to 5 sec.
 exec mako --default-timeout 5000
-# exec mako
 
 # volume control
 exec pavucontrol
@@ -327,6 +306,7 @@ exec pavucontrol
 # Terminal emulator
 exec kitty
 
+# Internet
 exec thunderbird
 exec firefox
 
@@ -334,4 +314,8 @@ exec firefox
 exec pcmanfm-qt
 
 # Disable support for xwayland
-xwayland disable
+# Commented out because otherwise a lot of applications won't work (vscode, steam, ...)
+# xwayland disable
+# Note: xorg-server etc. are not needed but you need to install the package "xorg-server-xwayland" from AUR
+# https://www.archlinux.org/packages/extra/x86_64/xorg-server-xwayland
+# sudo pacman -U xorg-server-wayland...
