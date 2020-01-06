@@ -1,5 +1,5 @@
 # sway-stuff
-Some configuration files for getting sway wm to work without the xorg-server.
+Some configuration files for getting swaywm to work without the whole xorg-server.
 
 ### Installation
 The only necessary files are sway's config file (`.config/sway/config`) and the environment adjustments in `/etc/environment`.
