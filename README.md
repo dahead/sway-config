@@ -1,5 +1,6 @@
 # sway-stuff
-Some configuration files for getting swaywm to work without the whole xorg-server.
+My personal configuration files for getting swaywm to work without xorg-server under archlinux.
+My setup uses a laptop with a dockingstation and one external display (Clamshell Mode).
 
 ### Installation
 The only necessary files are sway's config file (`.config/sway/config`) and the environment adjustments in `/etc/environment`.
@@ -20,12 +21,12 @@ Note: xorg-server etc. are not needed but you need to be installed. The only pac
 
 ### Features
 - Notifications with mako.
-- Variables set so various applications can launch.
+- Variables set so various applications can launch on already configured workspaces.
 - Autostart sway after logon on tty1.
 - Adjust opacitiy of selected window with `$mod+o` or `$mod+shift+o`
 
 ### Optional applications
-- wofi as a launcher. See: https://aur.archlinux.org/packages/wofi/.
+- bemenu as a launcher. See: https://archlinux.org/packages/community/x86_64/bemenu/.
 - If you want to have notifications enabled, you have to install mako. See: https://github.com/emersion/mako.
 
 ### Todo in the future
