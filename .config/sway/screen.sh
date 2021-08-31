@@ -20,10 +20,6 @@ RES_STD="1920x1050"
 RES_MID="1920x1080"
 RES_MAX="2560x1440"
 
-# Get output of swaymsg -t get_outputs
-#OUTPUT=$(swaymsg -t get_outputs)
-#if [[ -n "$OUTPUT" ]]; then
-
 # Use HDMI with LG
 # HiDPI Mode
 swaymsg output $SCR_AUX3 scale 1
@@ -32,6 +28,3 @@ swaymsg output $SCR_AUX3 res $RES_MID
 
 # shutdown laptop display
 swaymsg output $SCR_MAIN disable
-
-	# swaymsg output $LAPTOP disable
-#fi
