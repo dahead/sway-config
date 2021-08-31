@@ -1,39 +1,11 @@
-# ~/.config/sway/config
-# Read `man 5 sway` for a complete reference.
+# set hotkey to Alt
+set $mod Mod1
 
 # Home row direction keys, like vim
 set $left h
 set $down j
 set $up k
 set $right l
-
-### Idle configuration
-#
-# Example configuration:
-#
-#exec swayidle -w \
-#          timeout 300 'swaylock -f -c 000000' \
-#          timeout 600 'swaymsg "output * dpms off"' \
-#               resume 'swaymsg "output * dpms on"' \
-#          before-sleep 'swaylock -f -c 000000'
-#
-# This will lock your screen after 300 seconds of inactivity, then turn off
-# your displays after another 300 seconds, and turn your screens back on when
-# resumed. It will also lock your screen before your computer goes to sleep.
-
-### Input configuration
-#
-# Example configuration:
-#
-#   input "2:14:SynPS/2_Synaptics_TouchPad" {
-#       dwt enabled
-#       tap enabled
-#       natural_scroll enabled
-#       middle_emulation enabled
-#   }
-#
-# You can get the names of your inputs by running: swaymsg -t get_inputs
-# Read `man 5 sway-input` for more information about this section.
 
 ### Key bindings
 #
@@ -55,11 +27,12 @@ set $right l
     # mouse button for dragging.
     floating_modifier $mod normal
 
-    # Reload the configuration file
+    # CE the configuration file
     bindsym $mod+Shift+c reload
 
     # Exit sway (logs you out of your Wayland session)
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+
 #
 # Moving around:
 #
@@ -68,6 +41,7 @@ set $right l
     bindsym $mod+$down focus down
     bindsym $mod+$up focus up
     bindsym $mod+$right focus right
+
     # Or use $mod+[up|down|left|right]
     bindsym $mod+Left focus left
     bindsym $mod+Down focus down
@@ -79,6 +53,7 @@ set $right l
     bindsym $mod+Shift+$down move down
     bindsym $mod+Shift+$up move up
     bindsym $mod+Shift+$right move right
+
     # Ditto, with arrow keys
     bindsym $mod+Shift+Left move left
     bindsym $mod+Shift+Down move down
@@ -88,32 +63,35 @@ set $right l
 #
 # Workspaces:
 #
+    set $wsBASE "BASE"
+    set $wsSYS "SYS"
+    set $wsINET "INET"
+    set $wsDEV "DEV"
+    set $wsGAME "GAME"
+
     # Switch to workspace
-    bindsym $mod+1 workspace 1
-    bindsym $mod+2 workspace 2
-    bindsym $mod+3 workspace 3
-    bindsym $mod+4 workspace 4
-    bindsym $mod+5 workspace 5
-    bindsym $mod+6 workspace 6
-    bindsym $mod+7 workspace 7
-    bindsym $mod+8 workspace 8
-    bindsym $mod+9 workspace 9
-    bindsym $mod+0 workspace 10
+    bindsym $mod+1 workspace $wsBASE
+    bindsym $mod+2 workspace $wsSYS
+    bindsym $mod+3 workspace $wsINET
+    bindsym $mod+4 workspace $wsDEV
+    bindsym $mod+9 workspace $wsGAME
 
     # Move focused container to workspace
-    bindsym $mod+Shift+1 move container to workspace 1
-    bindsym $mod+Shift+2 move container to workspace 2
-    bindsym $mod+Shift+3 move container to workspace 3
-    bindsym $mod+Shift+4 move container to workspace 4
-    bindsym $mod+Shift+5 move container to workspace 5
-    bindsym $mod+Shift+6 move container to workspace 6
-    bindsym $mod+Shift+7 move container to workspace 7
-    bindsym $mod+Shift+8 move container to workspace 8
-    bindsym $mod+Shift+9 move container to workspace 9
-    bindsym $mod+Shift+0 move container to workspace 10
-    # Note: workspaces can have any name you want, not just numbers.
-    # We just use 1-10 as the default.
+    bindsym $mod+Shift+1 move container to workspace $wsBASE
+    bindsym $mod+Shift+2 move container to workspace $wsSYS
+    bindsym $mod+Shift+3 move container to workspace $wsINET
+    bindsym $mod+Shift+4 move container to workspace $wsDEV
+    bindsym $mod+Shift+9 move container to workspace $wsGAME
 
+    # assign [app_id="kitty"] $wsBASE
+    assign [app_id="pcmanfm"] $wsBASE
+    assign [app_id="pavucontrol"] $wsSYS
+    assign [app_id="thunderbird"] $wsINET
+    assign [class="Chromium"] $wsINET
+    assign [app_id="firefox"] $wsINET
+    assign [class="Code"] $wsDEV
+    assign [class="Steam"] $wsGAME
+   
 #
 # Layout stuff:
 #
@@ -178,24 +156,17 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
-#
-# Status Bar:
-#
-# Read `man 5 sway-bar` for more information about this section.
 bar {
-    font pango:SourceCodePro Medium 8
+    # show status in the bottom right corner
     position bottom
-    # bar hidden_state hide
-    bar mode dock
-
-    # When the status_command prints a new line to stdout, swaybar updates.
-    # The default just shows the current date and time.
-    # status_command while date +'%d-%m-%Y %T'; do sleep 1; done
-
+    status_command while ~/.config/sway/status.sh; do sleep 1; done
+    font pango:SourceCodePro Medium 8
+    # hidden_state hide
     colors {
         statusline #ffffff
         background #212121
     }
+    
 }
 
 include /etc/sway/config.d/*
@@ -204,49 +175,18 @@ include /etc/sway/config.d/*
 # dh adjustments
 #############################################
 
-### Set modifier to alt
-set $mod Mod1
-
-# Application launcher wofi
-set $menu dmenu_path | wofi --show drun -i | xargs swaymsg exec --
+# Application launcher bemenu
+set $menu bemenu-run
 
 ### Output configuration
-output * bg /home/dh/Wallpaper/island_3-wallpaper-2560x1440.jpg fill
-
-# Lenvo X1C7 with external LG monitor
-# Both Displays
-#output eDP-1 scale 1
-#output eDP-1 pos 320 1080 res 1920x1080
-#output DP-5 scale 1
-#output DP-5 pos 0 0 res 1920x1080
-# Just LG Display
-output eDP-1 disable
-output DP-5 scale 1
-output DP-5 pos 0 0 res 1920x1080
-
-# Screen modes. Note: mirroring is not yet supported by sway.
-# Switcher script
-set $scr_aux = "DP-5"
-set $scr_main = "eDP-1"
-set $native = "1920"
-set $mode_display AUX SCREEN: (l) LEFT (r) RIGHT (o) OFF (m) MIRROR
-mode "$mode_display" {
-    bindsym l output $scr_aux enable, output $scr_main pos 0 0, output $scr_aux pos -$native_width 0, mode "default"
-    bindsym r output $scr_aux enable, output $scr_main pos 0 0, output $scr_aux pos $native_width 0, mode "default"
-    bindsym m output $scr_aux enable, output $scr_main pos 0 0, output $scr_aux pos 0 0, mode "default"
-    bindsym o output $scr_aux disable, mode "default"
-
-    # back to normal: Enter or Escape
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
-bindsym $mod+x mode "$mode_display"
+output * bg ~/Wallpaper/the-alps_1920x1080.jpg fill
 
 # Look
 font pango:SourceCodePro Medium 10
 smart_borders on
 smart_gaps on
 popup_during_fullscreen ignore
+
 #gaps outer -5
 #gaps innter 10
 
@@ -274,7 +214,6 @@ set $term kitty
 default_orientation auto
 
 # Power/Shutdown/Standby stuff
-
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
     bindsym l exec swaylock, mode "default"
@@ -292,26 +231,23 @@ bindsym $mod+Pause mode "$mode_system"
 
 ###############################################
 # Autostart
-##############################################
+###############################################
+
+# Clamshell mode (Laptop lid)
+set $laptop eDP-1
+bindswitch --reload --locked lid:on output $laptop disable
+bindswitch --reload --locked lid:off output $laptop enable
+
+# Start
+exec_always ~/.config/sway/screen.sh
+exec_always ~/.config/sway/apps.sh
+exec_always ~/.config/sway/laptop.sh
 
 # hack to hide the bar (doesn't work via bar config above)
 exec_always swaymsg bar mode hide
 
 # Mako - desktop notifications with default timeout set to 5 sec.
 exec mako --default-timeout 5000
-
-# volume control
-exec pavucontrol
-
-# Terminal emulator
-exec kitty
-
-# Internet
-exec thunderbird
-exec firefox
-
-# File manage - pcmanfm for qt
-exec pcmanfm-qt
 
 # Disable support for xwayland
 # Commented out because otherwise a lot of applications won't work (vscode, steam, ...)
