@@ -1,5 +1,6 @@
-# set hotkey to Alt
 set $mod Mod1
+set $term kitty
+set $menu bemenu-run
 
 # Home row direction keys, like vim
 set $left h
@@ -7,129 +8,116 @@ set $down j
 set $up k
 set $right l
 
-### Key bindings
-#
-# Basics:
-#
-    # Start a terminal
-    bindsym $mod+Return exec $term
+# Start a terminal
+bindsym $mod+Return exec $term
 
-    # Kill focused window
-    bindsym $mod+Shift+q kill
+# Kill focused window
+bindsym $mod+Shift+q kill
 
-    # Start your launcher
-    bindsym $mod+d exec $menu
+# Start your launcher
+bindsym $mod+d exec $menu
 
-    # Drag floating windows by holding down $mod and left mouse button.
-    # Resize them with right mouse button + $mod.
-    # Despite the name, also works for non-floating windows.
-    # Change normal to inverse to use left mouse button for resizing and right
-    # mouse button for dragging.
-    floating_modifier $mod normal
+# Drag floating windows by holding down $mod and left mouse button.
+# Resize them with right mouse button + $mod.
+# Despite the name, also works for non-floating windows.
+# Change normal to inverse to use left mouse button for resizing and right
+# mouse button for dragging.
+floating_modifier $mod normal
 
-    # CE the configuration file
-    bindsym $mod+Shift+c reload
+# Exit, restart, reload sway.
+bindsym $mod+Shift+e exec swaynag -t warning -m 'Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+bindsym $mod+Shift+r restart
+bindsym $mod+Shift+c reload
+# bindsym $mod+Shift+r exec swaynag -t warning -m 'Do you really want to restart sway? This will end your Wayland session.' -b 'Yes, restart sway' 'swaymsg restart'
+# bindsym $mod+Shift+c exec swaynag -t warning -m 'Do you really want to reload sway? This will end your Wayland session.' -b 'Yes, reload sway' 'swaymsg reload'
 
-    # Exit sway (logs you out of your Wayland session)
-    bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
-
-#
 # Moving around:
-#
-    # Move your focus around
-    bindsym $mod+$left focus left
-    bindsym $mod+$down focus down
-    bindsym $mod+$up focus up
-    bindsym $mod+$right focus right
+# Move your focus around
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
 
-    # Or use $mod+[up|down|left|right]
-    bindsym $mod+Left focus left
-    bindsym $mod+Down focus down
-    bindsym $mod+Up focus up
-    bindsym $mod+Right focus right
+# Or use $mod+[up|down|left|right]
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
 
-    # Move the focused window with the same, but add Shift
-    bindsym $mod+Shift+$left move left
-    bindsym $mod+Shift+$down move down
-    bindsym $mod+Shift+$up move up
-    bindsym $mod+Shift+$right move right
+# Move the focused window with the same, but add Shift
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
 
-    # Ditto, with arrow keys
-    bindsym $mod+Shift+Left move left
-    bindsym $mod+Shift+Down move down
-    bindsym $mod+Shift+Up move up
-    bindsym $mod+Shift+Right move right
+# Ditto, with arrow keys
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
 
-#
 # Workspaces:
-#
-    set $wsBASE "BASE"
-    set $wsSYS "SYS"
-    set $wsINET "INET"
-    set $wsDEV "DEV"
-    set $wsGAME "GAME"
+set $wsBASE "BASE"
+set $wsSYS "SYS"
+set $wsINET "INET"
+set $wsDEV "DEV"
+set $wsGAME "GAME"
 
-    # Switch to workspace
-    bindsym $mod+1 workspace $wsBASE
-    bindsym $mod+2 workspace $wsSYS
-    bindsym $mod+3 workspace $wsINET
-    bindsym $mod+4 workspace $wsDEV
-    bindsym $mod+9 workspace $wsGAME
+# Switch to workspace
+bindsym $mod+1 workspace $wsBASE
+bindsym $mod+2 workspace $wsSYS
+bindsym $mod+3 workspace $wsINET
+bindsym $mod+4 workspace $wsDEV
+bindsym $mod+9 workspace $wsGAME
 
-    # Move focused container to workspace
-    bindsym $mod+Shift+1 move container to workspace $wsBASE
-    bindsym $mod+Shift+2 move container to workspace $wsSYS
-    bindsym $mod+Shift+3 move container to workspace $wsINET
-    bindsym $mod+Shift+4 move container to workspace $wsDEV
-    bindsym $mod+Shift+9 move container to workspace $wsGAME
+# Move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $wsBASE
+bindsym $mod+Shift+2 move container to workspace $wsSYS
+bindsym $mod+Shift+3 move container to workspace $wsINET
+bindsym $mod+Shift+4 move container to workspace $wsDEV
+bindsym $mod+Shift+9 move container to workspace $wsGAME
 
-    # assign [app_id="kitty"] $wsBASE
-    assign [app_id="pcmanfm"] $wsBASE
-    assign [app_id="pavucontrol"] $wsSYS
-    assign [app_id="thunderbird"] $wsINET
-    assign [class="Chromium"] $wsINET
-    assign [app_id="firefox"] $wsINET
-    assign [class="Code"] $wsDEV
-    assign [class="Steam"] $wsGAME
+# assign [app_id="kitty"] $wsBASE
+assign [app_id="pcmanfm"] $wsBASE
+assign [app_id="pavucontrol"] $wsSYS
+assign [app_id="thunderbird"] $wsINET
+assign [class="Chromium"] $wsINET
+assign [app_id="firefox"] $wsINET
+assign [class="Code"] $wsDEV
+assign [class="Steam"] $wsGAME
    
 #
 # Layout stuff:
 #
-    # You can "split" the current object of your focus with
-    # $mod+b or $mod+v, for horizontal and vertical splits
-    # respectively.
-    bindsym $mod+b splith
-    bindsym $mod+v splitv
+# You can "split" the current object of your focus with
+# $mod+b or $mod+v, for horizontal and vertical splits
+# respectively.
+bindsym $mod+b splith
+bindsym $mod+v splitv
 
-    # Switch the current container between different layout styles
-    bindsym $mod+s layout stacking
-    bindsym $mod+w layout tabbed
-    bindsym $mod+e layout toggle split
+# Switch the current container between different layout styles
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
 
-    # Make the current focus fullscreen
-    bindsym $mod+f fullscreen
+# Make the current focus fullscreen
+bindsym $mod+f fullscreen
 
-    # Toggle the current focus between tiling and floating mode
-    bindsym $mod+Shift+space floating toggle
+# Toggle the current focus between tiling and floating mode
+bindsym $mod+Shift+space floating toggle
 
-    # Swap focus between the tiling area and the floating area
-    bindsym $mod+space focus mode_toggle
+# Swap focus between the tiling area and the floating area
+bindsym $mod+space focus mode_toggle
 
-    # Move focus to the parent container
-    bindsym $mod+a focus parent
+# Move focus to the parent container
+# bindsym $mod+a focus parent
 
-#
-# Scratchpad:
-#
-    # Sway has a "scratchpad", which is a bag of holding for windows.
-    # You can send windows there and get them back later.
-
-    # Move the currently focused window to the scratchpad
-    bindsym $mod+Shift+minus move scratchpad
-
-    # Show the next scratchpad window or hide the focused scratchpad window.
-    # If there are multiple scratchpad windows, this command cycles through them.
-    bindsym $mod+minus scratchpad show
+# Scratchpad / Quake Mode;
+# Hide every instance of $term (move to scratchpad).
+for_window [app_id="(?i)$term"] move to scratchpad, resize set 1800 1000 px, opacity set 0.9; scratchpad show;
+bindsym Control+grave scratchpad show
+bindsym Control+Shift+grave move scratchpad
+# for_window [[app_id="$term"] floating enable, move scratchpad
 
 #
 # Resizing containers:
@@ -169,16 +157,8 @@ bar {
     
 }
 
-include /etc/sway/config.d/*
 
-##############################################
-# dh adjustments
-#############################################
-
-# Application launcher bemenu
-set $menu bemenu-run
-
-### Output configuration
+# background
 output * bg ~/Wallpaper/the-alps_1920x1080.jpg fill
 
 # Look
@@ -187,9 +167,6 @@ smart_borders on
 smart_gaps on
 popup_during_fullscreen ignore
 
-#gaps outer -5
-#gaps innter 10
-
 # adjust opacity of current window
 bindsym $mod+o opacity plus 0.1
 bindsym $mod+shift+o opacity minus 0.1
@@ -197,34 +174,24 @@ bindsym $mod+shift+o opacity minus 0.1
 # Toggle sticky window (show on all workspaces on/off)
 bindsym $mod+p sticky toggle
 
-# Todo: switch off display when laptop lid is closed
-bindswitch lid:toggle exec echo "Lid moved"
-
-# Todo: rename current workspace X to Y
-# dialog --title 'Message' --msgbox 'Hello, world!' 5 20
-# bindsym $mod+shift+r exec "dialog --inputbox "Workspace name:" 8 40 2"
-
 # Set default workspace layout to tabbed
 workspace_layout tabbed
-
-# Your preferred terminal emulator
-set $term kitty
 
 # Set default orientation of workspaces to auto
 default_orientation auto
 
-# Power/Shutdown/Standby stuff
-set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
+# Lock, Shutdown, standby, ...
+set $mode_system (l) Lock, (s) Suspend, (h) Hibernate, (r) Reboot, (x) shutdown
 mode "$mode_system" {
-    bindsym l exec swaylock, mode "default"
-    bindsym e exec exit, mode "default"
+    # bindsym l exec swaylock, mode "default"
+    bindsym l exec exec swaylock, mode "default"
     bindsym s exec systemctl suspend, mode "default"
     bindsym h exec systemctl hibernate, mode "default"
     bindsym r exec systemctl reboot, mode "default"
-    bindsym Shift+s exec systemctl suspend shutdown, mode "default"
+    bindsym x exec shutdown now, mode "default"
 
     # back to normal: Enter or Escape
-    bindsym Return mode "default"
+    # bindsym Return mode "default"
     bindsym Escape mode "default"
 }
 bindsym $mod+Pause mode "$mode_system"
@@ -240,11 +207,13 @@ bindswitch --reload --locked lid:off output $laptop enable
 
 # Start
 exec_always ~/.config/sway/screen.sh
-exec_always ~/.config/sway/apps.sh
+# always execute atleast one instance of $term for the quake console
+exec_always $term
+# exec_always ~/.config/sway/apps.sh
 exec_always ~/.config/sway/laptop.sh
 
 # hack to hide the bar (doesn't work via bar config above)
-exec_always swaymsg bar mode hide
+# exec_always swaymsg bar mode hide
 
 # Mako - desktop notifications with default timeout set to 5 sec.
 exec mako --default-timeout 5000
@@ -255,3 +224,5 @@ exec mako --default-timeout 5000
 # Note: xorg-server etc. are not needed but you need to install the package "xorg-server-xwayland" from AUR
 # https://www.archlinux.org/packages/extra/x86_64/xorg-server-xwayland
 # sudo pacman -U xorg-server-wayland...
+
+# include /etc/sway/config.d/*

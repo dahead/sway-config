@@ -1,8 +1,8 @@
 #!/bin/bash
-# start applications...
-(kitty &)
-(pcmanfm &)
-(firefox &)
+
+# (kitty &)
+# (pcmanfm &)
+# (firefox &)
 # (chromium &)
 # (thunderbird &)
-(pavucontrol &)
+# (pavucontrol &)
