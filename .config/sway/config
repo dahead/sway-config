@@ -84,6 +84,7 @@ assign [app_id="thunderbird"] $wsINET
 assign [class="Chromium"] $wsINET
 assign [app_id="firefox"] $wsINET
 assign [class="Code"] $wsDEV
+assign [class="code-oss"] $wsDEV
 assign [class="Steam"] $wsGAME
    
 #
@@ -114,7 +115,7 @@ bindsym $mod+space focus mode_toggle
 
 # Scratchpad / Quake Mode;
 # Hide every instance of $term (move to scratchpad).
-for_window [app_id="(?i)$term"] move to scratchpad, resize set 1800 1000 px, opacity set 0.9; scratchpad show;
+for_window [app_id="(?i)$term"] move to scratchpad, resize set 1800 1000 px, opacity set 0.9; scratchpad hide;
 bindsym Control+grave scratchpad show
 bindsym Control+Shift+grave move scratchpad
 # for_window [[app_id="$term"] floating enable, move scratchpad
@@ -153,10 +154,8 @@ bar {
     colors {
         statusline #ffffff
         background #212121
-    }
-    
+    }   
 }
-
 
 # background
 output * bg ~/Wallpaper/the-alps_1920x1080.jpg fill
@@ -209,7 +208,7 @@ bindswitch --reload --locked lid:off output $laptop enable
 exec_always ~/.config/sway/screen.sh
 # always execute atleast one instance of $term for the quake console
 exec_always $term
-# exec_always ~/.config/sway/apps.sh
+exec_always ~/.config/sway/apps.sh
 exec_always ~/.config/sway/laptop.sh
 
 # hack to hide the bar (doesn't work via bar config above)
