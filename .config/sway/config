@@ -25,7 +25,7 @@ bindsym $mod+d exec $menu
 floating_modifier $mod normal
 
 # Exit, restart, reload sway.
-bindsym $mod+Shift+e exec swaynag -t warning -m 'Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+bindsym $mod+Shift+e exec swaynag -t warning -m 'Exit sway?' -b 'Yes' 'swaymsg exit'
 bindsym $mod+Shift+r restart
 bindsym $mod+Shift+c reload
 # bindsym $mod+Shift+r exec swaynag -t warning -m 'Do you really want to restart sway? This will end your Wayland session.' -b 'Yes, restart sway' 'swaymsg restart'
@@ -62,30 +62,33 @@ set $wsSYS "SYS"
 set $wsINET "INET"
 set $wsDEV "DEV"
 set $wsGAME "GAME"
+set $wsVOLUME "VOLUME"
 
 # Switch to workspace
 bindsym $mod+1 workspace $wsBASE
 bindsym $mod+2 workspace $wsSYS
 bindsym $mod+3 workspace $wsINET
 bindsym $mod+4 workspace $wsDEV
-bindsym $mod+9 workspace $wsGAME
+bindsym $mod+8 workspace $wsGAME
+bindsym $mod+9 workspace $wsVOLUME
 
 # Move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $wsBASE
 bindsym $mod+Shift+2 move container to workspace $wsSYS
 bindsym $mod+Shift+3 move container to workspace $wsINET
 bindsym $mod+Shift+4 move container to workspace $wsDEV
-bindsym $mod+Shift+9 move container to workspace $wsGAME
+bindsym $mod+Shift+8 move container to workspace $wsGAME
+bindsym $mod+Shift+9 move container to workspace $wsVOLUME
 
 # assign [app_id="kitty"] $wsBASE
-assign [app_id="pcmanfm"] $wsBASE
-assign [app_id="pavucontrol"] $wsSYS
-assign [app_id="thunderbird"] $wsINET
-assign [class="Chromium"] $wsINET
-assign [app_id="firefox"] $wsINET
 assign [class="Code"] $wsDEV
 assign [class="code-oss"] $wsDEV
+assign [class="Chromium"] $wsINET
 assign [class="Steam"] $wsGAME
+assign [app_id="firefox"] $wsINET
+assign [app_id="pavucontrol"] $wsVOLUME
+assign [app_id="pcmanfm"] $wsBASE
+assign [app_id="thunderbird"] $wsINET
    
 #
 # Layout stuff:
@@ -115,10 +118,9 @@ bindsym $mod+space focus mode_toggle
 
 # Scratchpad / Quake Mode;
 # Hide every instance of $term (move to scratchpad).
-for_window [app_id="(?i)$term"] move to scratchpad, resize set 1800 1000 px, opacity set 0.9; scratchpad hide;
-bindsym Control+grave scratchpad show
-bindsym Control+Shift+grave move scratchpad
-# for_window [[app_id="$term"] floating enable, move scratchpad
+# for_window [app_id="(?i)$term"] move to scratchpad, resize set 1800 1000 px, opacity set 0.9; scratchpad hide;
+# bindsym Control+grave scratchpad show
+# bindsym Control+Shift+grave move scratchpad
 
 #
 # Resizing containers:
@@ -148,7 +150,8 @@ bindsym $mod+r mode "resize"
 bar {
     # show status in the bottom right corner
     position bottom
-    status_command while ~/.config/sway/status.sh; do sleep 1; done
+    # status_command while ~/.config/sway/status.sh; do sleep 1; done
+    status_command i3status
     font pango:SourceCodePro Medium 8
     # hidden_state hide
     colors {
@@ -196,6 +199,36 @@ mode "$mode_system" {
 bindsym $mod+Pause mode "$mode_system"
 
 ###############################################
+# Special Keys
+###############################################
+
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+bindsym XF86MonBrightnessUp exec brightnessctl set 5%+
+# bindsym XF86AudioPlay exec playerctl play-pause
+# bindsym XF86AudioNext exec playerctl next
+# bindsym XF86AudioPrev exec playerctl previous
+# bindsym XF86Search exec bemenu-run
+
+###############################################
+# Input
+# Input device: SYNA8005:00 06CB:CD8C Touchpad
+#  Type: Touchpad
+#  Identifier: 1739:52620:SYNA8005:00_06CB:CD8C_Touchpad
+#  Product ID: 52620
+#  Vendor ID: 1739
+#  Libinput Send Events: enabled
+###############################################
+
+input type:touchpad {
+    tap enabled
+    natural_scroll enabled
+}
+
+###############################################
 # Autostart
 ###############################################
 
@@ -207,7 +240,7 @@ bindswitch --reload --locked lid:off output $laptop enable
 # Start
 exec_always ~/.config/sway/screen.sh
 # always execute atleast one instance of $term for the quake console
-exec_always $term
+# exec_always $term
 exec_always ~/.config/sway/apps.sh
 exec_always ~/.config/sway/laptop.sh
 

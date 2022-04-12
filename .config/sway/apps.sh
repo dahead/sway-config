@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # (kitty &)
-# (pcmanfm &)
-# (firefox &)
+(pcmanfm &)
+(firefox &)
+(pavucontrol &)
 # (chromium &)
 # (thunderbird &)
-# (pavucontrol &)

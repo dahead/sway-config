@@ -28,5 +28,9 @@ swaymsg output $SCR_AUX3 scale 1
 swaymsg output $SCR_AUX3 enable
 swaymsg output $SCR_AUX3 res $RES_MID
 
+swaymsg output $SCR_AUX4 scale 1
+swaymsg output $SCR_AUX4 enable
+swaymsg output $SCR_AUX4 res $RES_MID
+
 # shutdown laptop display
-swaymsg output $SCR_MAIN disable
+# swaymsg output $SCR_MAIN disable
