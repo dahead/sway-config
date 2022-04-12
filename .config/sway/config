@@ -1,3 +1,7 @@
+# This swaywm configuration file is customized to work with an Lenovo X1C9 laptop under Arch Linux.
+#
+#
+
 set $mod Mod1
 set $term kitty
 set $menu bemenu-run
@@ -114,17 +118,20 @@ bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
 
 # Move focus to the parent container
-# bindsym $mod+a focus parent
+bindsym $mod+a focus parent
 
-# Scratchpad / Quake Mode;
+###############################################
+# Scratchpad / Quake Mode
+###############################################
 # Hide every instance of $term (move to scratchpad).
 # for_window [app_id="(?i)$term"] move to scratchpad, resize set 1800 1000 px, opacity set 0.9; scratchpad hide;
 # bindsym Control+grave scratchpad show
 # bindsym Control+Shift+grave move scratchpad
 
-#
-# Resizing containers:
-#
+###############################################
+# Resize containers
+###############################################
+
 mode "resize" {
     # left will shrink the containers width
     # right will grow the containers width
@@ -147,10 +154,35 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
+###############################################
+# Lock, Shutdown, Reboot
+###############################################
+
+set $mode_system (l) Lock, (s) Suspend, (h) Hibernate, (r) Reboot, (x) shutdown
+mode "$mode_system" {
+    # bindsym l exec swaylock, mode "default"
+    bindsym l exec exec swaylock, mode "default"
+    bindsym s exec systemctl suspend, mode "default"
+    bindsym h exec systemctl hibernate, mode "default"
+    bindsym r exec systemctl reboot, mode "default"
+    bindsym x exec shutdown now, mode "default"
+
+    # back to normal: Enter or Escape
+    # bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+Pause mode "$mode_system"
+
+###############################################
+# Look, bar, background
+###############################################
+
 bar {
     # show status in the bottom right corner
     position bottom
+    # Use simple status script
     # status_command while ~/.config/sway/status.sh; do sleep 1; done
+    # Use i3status with sway
     status_command i3status
     font pango:SourceCodePro Medium 8
     # hidden_state hide
@@ -182,22 +214,6 @@ workspace_layout tabbed
 # Set default orientation of workspaces to auto
 default_orientation auto
 
-# Lock, Shutdown, standby, ...
-set $mode_system (l) Lock, (s) Suspend, (h) Hibernate, (r) Reboot, (x) shutdown
-mode "$mode_system" {
-    # bindsym l exec swaylock, mode "default"
-    bindsym l exec exec swaylock, mode "default"
-    bindsym s exec systemctl suspend, mode "default"
-    bindsym h exec systemctl hibernate, mode "default"
-    bindsym r exec systemctl reboot, mode "default"
-    bindsym x exec shutdown now, mode "default"
-
-    # back to normal: Enter or Escape
-    # bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
-bindsym $mod+Pause mode "$mode_system"
-
 ###############################################
 # Special Keys
 ###############################################
@@ -211,7 +227,7 @@ bindsym XF86MonBrightnessUp exec brightnessctl set 5%+
 # bindsym XF86AudioPlay exec playerctl play-pause
 # bindsym XF86AudioNext exec playerctl next
 # bindsym XF86AudioPrev exec playerctl previous
-# bindsym XF86Search exec bemenu-run
+bindsym XF86Search exec bemenu-run
 
 ###############################################
 # Input
@@ -244,11 +260,9 @@ exec_always ~/.config/sway/screen.sh
 exec_always ~/.config/sway/apps.sh
 exec_always ~/.config/sway/laptop.sh
 
-# hack to hide the bar (doesn't work via bar config above)
-# exec_always swaymsg bar mode hide
-
 # Mako - desktop notifications with default timeout set to 5 sec.
 exec mako --default-timeout 5000
+# > notify-send 'Hello world!' 'This is an example notification.' --icon=dialog-information
 
 # Disable support for xwayland
 # Commented out because otherwise a lot of applications won't work (vscode, steam, ...)
