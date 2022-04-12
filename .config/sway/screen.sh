@@ -12,25 +12,25 @@ SCR_AUX2="DP-2"
 SCR_AUX3="DP-3"
 SCR_AUX4="DP-4"
 SCR_AUX5="DP-5"
-SCR_AUX5="DP-7"
 SCR_AUX6="DP-6"
+SCR_AUX7="DP-7"
 SCR_AUX8="DP-8"
 SCR_AUX9="DP-9"
 
 # resolution list
-RES_STD="1920x1050"
-RES_MID="1920x1080"
-RES_MAX="2560x1440"
+RES_MIN="1920x1080"
+RES_STD="2560x1440"
+RES_MAX="3840x2160"
 
 # Use HDMI with LG
 # HiDPI Mode
 swaymsg output $SCR_AUX3 scale 1
 swaymsg output $SCR_AUX3 enable
-swaymsg output $SCR_AUX3 res $RES_MID
+swaymsg output $SCR_AUX3 res $RES_MIN
 
-swaymsg output $SCR_AUX4 scale 1
-swaymsg output $SCR_AUX4 enable
-swaymsg output $SCR_AUX4 res $RES_MID
+# swaymsg output $SCR_AUX4 scale 1
+# swaymsg output $SCR_AUX4 enable
+# swaymsg output $SCR_AUX4 res $RES_MIN
 
 # shutdown laptop display
 # swaymsg output $SCR_MAIN disable

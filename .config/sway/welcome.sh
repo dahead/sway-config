@@ -1,0 +1,1 @@
+notify-send 'Hello dh!' 'Welcome to arch linux.' --icon=dialog-information

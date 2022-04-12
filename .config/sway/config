@@ -272,3 +272,4 @@ exec mako --default-timeout 5000
 # sudo pacman -U xorg-server-wayland...
 
 # include /etc/sway/config.d/*
+# exec_always ~/.config/sway/welcome.sh
