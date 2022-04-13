@@ -16,7 +16,7 @@ sudo pacman -R --noconfirm awesome-terminal-fonts ttf-font-awesome
 sudo pacman -R --noconfirm htop tree remmina rsync putty p7zip  
 sudo pacman -R --noconfirm pulseaudio pavucontrol keepassxc
 # Obsolete?
-# sudo pacman -R --noconfirm alsa-utils  inetutils
+# sudo pacman -R --noconfirm dialog wpa_supplicant alsa-utils  inetutils
 
 # Security
 # sudo pacman -R --noconfirm ufw rkhunter nmap
