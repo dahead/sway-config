@@ -48,5 +48,5 @@ pacman -S mako
 ```
 
 ### Todo in the future
-- Move background image to variable. https://github.com/dahead/dotfiles/blob/0cd03c0183dfbeb9c64a151237641e59e984d215/.config/sway/config#L196
+- Move [background image](https://github.com/dahead/dotfiles/blob/0cd03c0183dfbeb9c64a151237641e59e984d215/.config/sway/config#L196) to variable.
 - Move global vars from `/etc/environment` to `.config/sway/env`. See https://github.com/swaywm/sway/wiki/Systemd-integration. The directories and files for this are already created in this repository.
