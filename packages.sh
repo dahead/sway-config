@@ -1,7 +1,9 @@
 #!/bin/bash
 
 # Base system
-sudo pacman -S --noconfirm mkinitcpio mkinitcpio-busybox curl wget dhcpcd
+sudo pacman -S --noconfirm efibootmgr iwd mkinitcpio mkinitcpio-busybox curl wget 
+# Obsolete since iwd 0.19
+# sudo pacman -S --noconfirm dhcpcd
 
 # desktop, window manager >>> sway
 sudo pacman -S --noconfirm wayland wayland-protocols sway swaylock swaybg swayidle i3status mako bemenu bemenu-wayland xorg-xwayland lxappearance nitrogen
@@ -36,7 +38,7 @@ sudo pacman -R --noconfirm visual-studio-code-bin qemu git virt-manager
 
 # Lenovo X1C9 specific
 sudo pacman -R --noconfirm xf86-video-intel xf86-video-nouveau lm_sensors fwupd brightnessctl-logind 
-# sudo pacman -R --noconfirm sof-firmware
+# sudo pacman -R --noconfirm xf86-video-amdgpu sof-firmware
 
 # Gaming
 # sudo pacman -R --noconfirm steam
@@ -45,3 +47,6 @@ sudo pacman -R --noconfirm xf86-video-intel xf86-video-nouveau lm_sensors fwupd 
 # sudo pacman -R --noconfirm xorg-fonts-encodings xorg-server-common xorg-setxkbmap xorg-xkbcomp xorg-xprop xorg-xrandr xorg-xset xorg-xwayland 
 
 # sudo systemctl enable lightdm
+
+# Services
+sudo systemctl enable iwd.service
