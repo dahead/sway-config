@@ -1,9 +1,10 @@
-# sway-stuff
-My personal configuration files for getting swaywm to work without xorg-server under archlinux.
-My setup uses a laptop with a docking station and one external display (aka Clamshell Mode).
+# dotfiles
+My personal configuration files for getting my machine set up.
+My setup uses a lenovo laptop with an intel cpu and a docking station and one external display (aka Clamshell Mode).
+I use swaywm with wayland, bemenu, kitty, zsh, neovim and other stuff.
 
-### Installation
-The only necessary files are sway's config file (`.config/sway/config`) and the environment adjustments in `/etc/environment`.
+### Swaywm installation
+The only necessary files are sway's config file (`.config/sway/config`) and the environment adjustments in `/etc/environment`. Other files in  (`.config/sway/`) are optional.
 
 ### Backwards compatibility with xwayland
 To disable support for xwayland/backwards compatibility add this line to your sway config:
@@ -22,7 +23,7 @@ Note: xorg-server etc. are not needed the be installed. The only package needed 
 ### Features
 - Notifications with mako.
 - App launcher with bemenu.
-- Date and time in the bottom right corner.
+- Statusbar with i3status.
 - Variables set so various applications can launch on already configured workspaces.
 - Autostart sway after logon on tty1.
 - Adjust opacitiy of selected window with <kbd>$mod</kbd> + <kbd>o</kbd> or <kbd>$mod</kbd> + <kbd>shift</kbd> + <kbd>o</kbd>
