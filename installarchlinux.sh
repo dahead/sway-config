@@ -3,6 +3,7 @@ USERNAME=dh
 HOSTNAME=dh-LAP1
 PARTITION1=/dev/sda1
 PARTITION2=/dev/sda2
+GITCONFIG=https://github.com/dahead/dotfiles
 
 # start setup
 
@@ -77,7 +78,9 @@ ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
 hwclock --systohc
 
 // locales
-sed -i '177s/.//' /etc/locale.gen
+echo "" > /etc/locale.gen
+echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
+echo "en_US ISO-8859-1" >> /etc/locale.gen
 locale-gen
 echo "LANG=en_US.UTF-8" >> /etc/locale.conf
 echo "KEYMAP=en" >> /etc/vconsole.conf
@@ -97,6 +100,6 @@ echo "$USERNAME ALL=(ALL) ALL" >> /etc/sudoers.d/$USERNAME
 
 
 // get my config
-git clone https://github.com/dahead/dotfiles/dotfiles-git
+git clone $GITCONFIG
 
 printf "\e[1;32mInstallation done! Type exit, umount -a and reboot the system.\e[0m"
