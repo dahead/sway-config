@@ -4,6 +4,10 @@ My setup uses a lenovo laptop with an intel cpu and a docking station and one ex
 I use sway as a windowmanager under wayland with bemenu, kitty, pcmanfm, zsh, neovim and other stuff.
 
 ### sway installation
+The arch installation is documented in (`installarchlinux.sh`).
+The packages for the installed system are in (`packages.sh`).
+
+### sway installation
 The only necessary files are sway's config file (`.config/sway/config`) and the environment adjustments in `/etc/environment`. Other files in  (`.config/sway/`) are optional.
 
 ### Backwards compatibility with xwayland
