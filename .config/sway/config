@@ -1,10 +1,8 @@
 # This swaywm configuration file is customized to work with an Lenovo X1C9 laptop under Arch Linux.
-#
-#
-
 set $mod Mod1
 set $term kitty
 set $menu bemenu-run
+set $DISPLAYLAPTOP eDP-1
 
 # Home row direction keys, like vim
 set $left h
@@ -89,17 +87,14 @@ assign [class="Code"] $wsDEV
 assign [class="code-oss"] $wsDEV
 assign [class="Chromium"] $wsINET
 assign [class="Steam"] $wsGAME
+assign [class="Virt-manager"] $wsDEV
 assign [app_id="firefox"] $wsINET
 assign [app_id="pavucontrol"] $wsVOLUME
+assign [app_id="cmus"] $wsVOLUME
 assign [app_id="pcmanfm"] $wsBASE
 assign [app_id="thunderbird"] $wsINET
    
-#
 # Layout stuff:
-#
-# You can "split" the current object of your focus with
-# $mod+b or $mod+v, for horizontal and vertical splits
-# respectively.
 bindsym $mod+b splith
 bindsym $mod+v splitv
 
@@ -133,10 +128,6 @@ bindsym $mod+a focus parent
 ###############################################
 
 mode "resize" {
-    # left will shrink the containers width
-    # right will grow the containers width
-    # up will shrink the containers height
-    # down will grow the containers height
     bindsym $left resize shrink width 10px
     bindsym $down resize grow height 10px
     bindsym $up resize shrink height 10px
@@ -189,7 +180,7 @@ bar {
     colors {
         statusline #ffffff
         background #212121
-    }   
+    }
 }
 
 # background
@@ -227,7 +218,7 @@ bindsym XF86MonBrightnessUp exec brightnessctl set 5%+
 # bindsym XF86AudioPlay exec playerctl play-pause
 # bindsym XF86AudioNext exec playerctl next
 # bindsym XF86AudioPrev exec playerctl previous
-bindsym XF86Search exec bemenu-run
+bindsym XF86Search exec $menu
 
 ###############################################
 # Input
@@ -249,9 +240,8 @@ input type:touchpad {
 ###############################################
 
 # Clamshell mode (Laptop lid)
-set $laptop eDP-1
-bindswitch --reload --locked lid:on output $laptop disable
-bindswitch --reload --locked lid:off output $laptop enable
+bindswitch --reload --locked lid:on output $DISPLAYLAPTOP disable
+bindswitch --reload --locked lid:off output $DISPLAYLAPTOP enable
 
 # Start
 exec_always ~/.config/sway/screen.sh
