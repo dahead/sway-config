@@ -1,0 +1,265 @@
+# This swaywm configuration file is customized to work with an lenovo laptop under Arch Linux.
+set $mod Mod1
+set $term kitty
+set $menu bemenu-run
+set $DISPLAYLAPTOP eDP-1
+
+# Home row direction keys, like vim
+set $left h
+set $down j
+set $up k
+set $right l
+
+# Start a terminal
+bindsym $mod+Return exec $term
+
+# Kill focused window
+bindsym $mod+Shift+q kill
+
+# Start your launcher
+bindsym $mod+d exec $menu
+
+# Drag floating windows by holding down $mod and left mouse button.
+# Resize them with right mouse button + $mod.
+# Despite the name, also works for non-floating windows.
+# Change normal to inverse to use left mouse button for resizing and right
+# mouse button for dragging.
+floating_modifier $mod normal
+
+# Exit, restart, reload sway.
+bindsym $mod+Shift+e exec swaynag -t warning -m 'Exit sway?' -b 'Yes' 'swaymsg exit'
+bindsym $mod+Shift+r restart
+bindsym $mod+Shift+c reload
+# bindsym $mod+Shift+r exec swaynag -t warning -m 'Do you really want to restart sway? This will end your Wayland session.' -b 'Yes, restart sway' 'swaymsg restart'
+# bindsym $mod+Shift+c exec swaynag -t warning -m 'Do you really want to reload sway? This will end your Wayland session.' -b 'Yes, reload sway' 'swaymsg reload'
+
+# Moving around:
+# Move your focus around
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
+
+# Or use $mod+[up|down|left|right]
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# Move the focused window with the same, but add Shift
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
+
+# Ditto, with arrow keys
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# Workspaces:
+set $wsBASE "BASE"
+set $wsSYS "SYS"
+set $wsINET "INET"
+set $wsDEV "DEV"
+set $wsGAME "GAME"
+set $wsVOLUME "VOLUME"
+
+# Switch to workspace
+bindsym $mod+1 workspace $wsBASE
+bindsym $mod+2 workspace $wsSYS
+bindsym $mod+3 workspace $wsINET
+bindsym $mod+4 workspace $wsDEV
+bindsym $mod+8 workspace $wsGAME
+bindsym $mod+9 workspace $wsVOLUME
+
+# Move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $wsBASE
+bindsym $mod+Shift+2 move container to workspace $wsSYS
+bindsym $mod+Shift+3 move container to workspace $wsINET
+bindsym $mod+Shift+4 move container to workspace $wsDEV
+bindsym $mod+Shift+8 move container to workspace $wsGAME
+bindsym $mod+Shift+9 move container to workspace $wsVOLUME
+
+# assign [app_id="kitty"] $wsBASE
+assign [class="Code"] $wsDEV
+assign [class="code-oss"] $wsDEV
+assign [class="Chromium"] $wsINET
+assign [class="Steam"] $wsGAME
+assign [class="Virt-manager"] $wsDEV
+assign [app_id="firefox"] $wsINET
+assign [app_id="pavucontrol"] $wsVOLUME
+assign [app_id="cmus"] $wsVOLUME
+assign [app_id="pcmanfm"] $wsBASE
+assign [app_id="thunderbird"] $wsINET
+   
+# Layout stuff:
+bindsym $mod+b splith
+bindsym $mod+v splitv
+
+# Switch the current container between different layout styles
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# Make the current focus fullscreen
+bindsym $mod+f fullscreen
+
+# Toggle the current focus between tiling and floating mode
+bindsym $mod+Shift+space floating toggle
+
+# Swap focus between the tiling area and the floating area
+bindsym $mod+space focus mode_toggle
+
+# Move focus to the parent container
+bindsym $mod+a focus parent
+
+###############################################
+# Scratchpad / Quake Mode
+###############################################
+# Hide every instance of $term (move to scratchpad).
+# for_window [app_id="(?i)$term"] move to scratchpad, resize set 1800 1000 px, opacity set 0.9; scratchpad hide;
+# bindsym Control+grave scratchpad show
+# bindsym Control+Shift+grave move scratchpad
+
+###############################################
+# Resize containers
+###############################################
+
+mode "resize" {
+    bindsym $left resize shrink width 10px
+    bindsym $down resize grow height 10px
+    bindsym $up resize shrink height 10px
+    bindsym $right resize grow width 10px
+
+    # Ditto, with arrow keys
+    bindsym Left resize shrink width 10px
+    bindsym Down resize grow height 10px
+    bindsym Up resize shrink height 10px
+    bindsym Right resize grow width 10px
+
+    # Return to default mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
+
+###############################################
+# Lock, Shutdown, Reboot
+###############################################
+
+set $mode_system (l) Lock, (s) Suspend, (h) Hibernate, (r) Reboot, (x) shutdown
+mode "$mode_system" {
+    # bindsym l exec swaylock, mode "default"
+    bindsym l exec exec swaylock, mode "default"
+    bindsym s exec systemctl suspend, mode "default"
+    bindsym h exec systemctl hibernate, mode "default"
+    bindsym r exec systemctl reboot, mode "default"
+    bindsym x exec shutdown now, mode "default"
+
+    # back to normal: Enter or Escape
+    # bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+Pause mode "$mode_system"
+
+###############################################
+# Look, bar, background
+###############################################
+
+bar {
+    # show status in the bottom right corner
+    position bottom
+    # Use simple status script
+    # status_command while ~/.config/sway/status.sh; do sleep 1; done
+    # Use i3status with sway
+    status_command i3status
+    font pango:SourceCodePro Medium 8
+    # hidden_state hide
+    colors {
+        statusline #ffffff
+        background #212121
+    }
+}
+
+# background
+output * bg ~/Wallpaper/the-alps_1920x1080.jpg fill
+
+# Look
+font pango:SourceCodePro Medium 10
+smart_borders on
+smart_gaps on
+popup_during_fullscreen ignore
+
+# adjust opacity of current window
+bindsym $mod+o opacity plus 0.1
+bindsym $mod+shift+o opacity minus 0.1
+
+# Toggle sticky window (show on all workspaces on/off)
+bindsym $mod+p sticky toggle
+
+# Set default workspace layout to tabbed
+workspace_layout tabbed
+
+# Set default orientation of workspaces to auto
+default_orientation auto
+
+###############################################
+# Special Keys
+###############################################
+
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+bindsym XF86MonBrightnessUp exec brightnessctl set 5%+
+# bindsym XF86AudioPlay exec playerctl play-pause
+# bindsym XF86AudioNext exec playerctl next
+# bindsym XF86AudioPrev exec playerctl previous
+bindsym XF86Search exec $menu
+
+###############################################
+# Input
+# Input device: SYNA8005:00 06CB:CD8C Touchpad
+#  Type: Touchpad
+#  Identifier: 1739:52620:SYNA8005:00_06CB:CD8C_Touchpad
+#  Product ID: 52620
+#  Vendor ID: 1739
+#  Libinput Send Events: enabled
+###############################################
+
+input type:touchpad {
+    tap enabled
+    natural_scroll enabled
+}
+
+###############################################
+# Autostart
+###############################################
+
+# Clamshell mode (Laptop lid)
+bindswitch --reload --locked lid:on output $DISPLAYLAPTOP disable
+bindswitch --reload --locked lid:off output $DISPLAYLAPTOP enable
+
+# Start
+exec_always ~/.config/sway/screen.sh
+# always execute atleast one instance of $term for the quake console
+# exec_always $term
+exec_always ~/.config/sway/apps.sh
+exec_always ~/.config/sway/laptop.sh
+
+# Mako - desktop notifications with default timeout set to 5 sec.
+exec mako --default-timeout 5000
+# > notify-send 'Hello world!' 'This is an example notification.' --icon=dialog-information
+
+# Disable support for xwayland
+# Commented out because otherwise a lot of applications won't work (vscode, steam, ...)
+# xwayland disable
+# Note: xorg-server etc. are not needed but you need to install the package "xorg-server-xwayland" from AUR
+# https://www.archlinux.org/packages/extra/x86_64/xorg-server-xwayland
+# sudo pacman -U xorg-server-wayland...
+
+# include /etc/sway/config.d/*
+# exec_always ~/.config/sway/welcome.sh
