@@ -1,4 +1,4 @@
-# This swaywm configuration file is customized to work with an Lenovo X1C9 laptop under Arch Linux.
+# This swaywm configuration file is customized to work with an lenovo laptop under Arch Linux.
 set $mod Mod1
 set $term kitty
 set $menu bemenu-run
