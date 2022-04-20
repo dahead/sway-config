@@ -8,6 +8,8 @@ sudo pacman -S --noconfirm efibootmgr iwd mkinitcpio curl wget
 
 # shell
 sudo pacman -R --noconfirm zsh zsh-completions zsh-syntax-highlighting zsh-theme-powerlevel10k
+# git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
+# echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc
 
 # desktop, window manager >>> sway
 sudo pacman -S --noconfirm wayland wayland-protocols sway swaylock swaybg swayidle i3status mako bemenu bemenu-wayland xorg-xwayland lxappearance nitrogen
@@ -27,7 +29,7 @@ sudo pacman -R --noconfirm pulseaudio pavucontrol keepassxc
 # file manager
 sudo pacman -R --noconfirm pcmanfm ffmpegthumbnailer file-roller
 
-# Text editor, terminal
+# Text editor
 sudo pacman -R --noconfirm nano neovim geany
 
 # Security
@@ -38,7 +40,7 @@ sudo pacman -R --noconfirm firefox youtube-dl
 
 # Media
 sudo pacman -R --noconfirm mpv grim viewnior cmus
-sudo pacman -R --noconfirm gst-plugins-base
+sudo pacman -R --noconfirm gst-plugins-base libdvdcss
 # Big packages...
 # sudo pacman -R --noconfirm gimp shotcut
 
