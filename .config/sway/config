@@ -175,7 +175,8 @@ bar {
     # status_command while ~/.config/sway/status.sh; do sleep 1; done
     # Use i3status with sway
     status_command i3status
-    font pango:SourceCodePro Medium 8
+    # font pango:MesloLGL Regular 8
+    font pango:ProFont for Powerline 8
     # hidden_state hide
     colors {
         statusline #ffffff
@@ -187,7 +188,7 @@ bar {
 output * bg ~/Wallpaper/the-alps_1920x1080.jpg fill
 
 # Look
-font pango:SourceCodePro Medium 10
+font pango:ProFont for Powerline 10
 smart_borders on
 smart_gaps on
 popup_during_fullscreen ignore
@@ -219,6 +220,8 @@ bindsym XF86MonBrightnessUp exec brightnessctl set 5%+
 # bindsym XF86AudioNext exec playerctl next
 # bindsym XF86AudioPrev exec playerctl previous
 bindsym XF86Search exec $menu
+# capture all screens to clipboard    
+bindsym Shift+Print exec grim    
 
 ###############################################
 # Input
